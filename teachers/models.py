@@ -1,8 +1,8 @@
 from django.db import models
 
 
-class Student(models.Model):
+class Teacher(models.Model):
     first_name = models.CharField(max_length=64, null=False)
     last_name = models.CharField(max_length=64, null=False)
-    age = models.IntegerField(default=20)
-
+    linkedin_profile = models.URLField(max_length=200, null=True)
+    profile_description = models.TextField(null=True)
