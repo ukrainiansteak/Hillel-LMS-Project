@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render  # noqa
 
 # Create your views here.
-from lms.utils import render_list
+from lms.utils import render_list, filter_queryset
 from students.models import Student
 
 
@@ -14,21 +14,17 @@ def get_students(request):
         'first_name__endswith',
         'first_name__contains',
         'last_name',
+        'last_name__startswith',
+        'last_name__endswith',
+        'last_name__contains',
         'age',
         'age__gt'
         'age__lt'
     ]
 
-    query = {}
-
-    for param_name in params:
-        param_value = request.GET.get(param_name)
-        if param_value:
-            query[param_name] = param_value
-
     try:
-        qs = qs.filter(**query)
+        qs = filter_queryset(request, qs, params)
     except ValueError as e:
-        return HttpResponse(f"Error. Wrong input data, {str(e)}", status=400)
+        return HttpResponse(str(e), status=400)
 
     return render_list(qs)
