@@ -3,3 +3,4 @@ __pycache__
 *.pyc
 .idea
 *.sqlite3
+.flake8
