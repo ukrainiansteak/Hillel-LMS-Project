@@ -6,6 +6,7 @@ black==21.12b0
 click==8.0.3
 decorator==5.1.1
 Django==3.2.11
+django-debug-toolbar==3.2.4
 django-extensions==3.1.5
 executing==0.8.2
 Faker==11.3.0
