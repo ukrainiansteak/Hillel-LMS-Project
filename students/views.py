@@ -1,12 +1,12 @@
 from django.forms import ModelForm
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render  # noqa
+from django.shortcuts import render, get_object_or_404  # noqa
 
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 
-from lms.utils import render_list, filter_queryset, render_list_html
-from students.forms import StudentCreateForm
+from lms.utils import render_list, filter_queryset, render_list_html, render_students_list_html
+from students.forms import StudentCreateForm, StudentUpdateForm
 from students.models import Student
 
 
@@ -46,14 +46,16 @@ def get_students(request):
 
             <p><button type="submit">Search</button></p>
         </form>
+        <a href="/students/create">Add new student</a>
+        <br>
         """
 
     try:
         qs = filter_queryset(request, qs, params)
     except ValueError as e:
         return HttpResponse(str(e), status=400)
-
-    return render_list_html(qs, form)
+    qs = qs.order_by('-id')
+    return render_students_list_html(qs, form)
 
 
 @csrf_exempt
@@ -70,6 +72,27 @@ def create_student(request):
             <form method="post">
                 {form.as_p()}
                 <p><button type="submit">Create Student</button></p>
+            </form>
+        """
+    return HttpResponse(html)
+
+
+@csrf_exempt
+def update_student(request, id):
+    student = get_object_or_404(Student, id=id)
+
+    if request.method == 'POST':
+        form = StudentUpdateForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/students')
+    else:
+        form = StudentUpdateForm(instance=student)
+
+    html = f"""
+            <form method="post">
+                {form.as_p()}
+                <p><button type="submit">Update Student</button></p>
             </form>
         """
     return HttpResponse(html)
