@@ -1,10 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404  # noqa
 
-# Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 
-from lms.utils import render_list, filter_queryset, render_teachers_list_html
+from core_lms.utils import filter_queryset, render_teachers_list_html
 from teachers.forms import TeacherCreateForm, TeacherUpdateForm
 from teachers.models import Teacher
 

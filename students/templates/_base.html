@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        table td, table th {
+            border: 1px solid black;
+            padding: 7px;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        {% include '_menu.html' %}
+    </p>
+    {% block main %}
+        <H1>Welcome to LMS</h1>
+    {% endblock %}
+</body>
+</html>

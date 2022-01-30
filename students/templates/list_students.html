@@ -1,0 +1,30 @@
+{% extends '_base.html' %}
+
+{% block main %}
+    <form>
+        <p>Search students</p>
+        {{ filter.form.as_p }}
+        <p>
+            <button type="submit">Search</button>
+        </p>
+    </form>
+    <a href="{% url 'create_student' %}">Add new student</a>
+    <br>
+
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th></th>
+        </tr>
+    {% for student in filter.qs|slice:":20" %}
+        <tr>
+            <td>{{ student.first_name }}</td>
+            <td>{{ student.last_name }}</td>
+            <td>{{ student.age }}</td>
+            <td><a href="{% url 'update_student' id=student.id %}">Edit</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

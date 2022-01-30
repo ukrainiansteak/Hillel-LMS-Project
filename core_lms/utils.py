@@ -63,7 +63,7 @@ def render_students_list_html(list_of_objects, extra_data="", no_data_message="<
     message = "<br>".join(string_rows)
     if not list_of_objects:
         message += "<br>" + html.escape(no_data_message)
-    response = HttpResponse(message)
+    response = HttpResponse('<body>%s</body>' % message)
     return response
 
 
@@ -81,5 +81,5 @@ def render_teachers_list_html(list_of_objects, extra_data="", no_data_message="<
     message = "<br>".join(string_rows)
     if not list_of_objects:
         message += "<br>" + html.escape(no_data_message)
-    response = HttpResponse(message)
+    response = HttpResponse('<body>%s</body>' % message)
     return response
