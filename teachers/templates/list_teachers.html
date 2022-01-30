@@ -1,0 +1,38 @@
+{% extends '_base.html' %}
+
+    {% block title %}
+        <title>View teachers</title>
+    {% endblock %}
+
+{% block main %}
+    <form>
+        <p>Search teachers</p>
+        {{ filter.form.as_p }}
+        <p>
+            <button type="submit">Search</button>
+        </p>
+    </form>
+    <a href="{% url 'create_teacher' %}">Add new teacher</a>
+    <br>
+
+    <table>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Email</th>
+            <th>Phone number</th>
+            <th>Birth date</th>
+            <th></th>
+        </tr>
+    {% for teacher in filter.qs|slice:":20" %}
+        <tr>
+            <td>{{ teacher.first_name }}</td>
+            <td>{{ teacher.last_name }}</td>
+            <td>{{ teacher.email }}</td>
+            <td>{{ teacher.phone_number }}</td>
+            <td>{{ teacher.birth_date }}</td>
+            <td><a href="{% url 'update_teacher' id=teacher.id %}">Edit</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

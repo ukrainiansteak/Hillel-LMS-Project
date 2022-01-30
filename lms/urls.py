@@ -16,15 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from teachers.views import get_teachers, create_teacher, update_teacher
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('students/', include('students.urls')),
-    path('teachers/', get_teachers),
+    path('teachers/', include('teachers.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
-    path('teachers/create', create_teacher),
-    path('teachers/update/<int:id>', update_teacher)
-
 
 ]

@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 
 from students.views import get_students, create_student, update_student
 

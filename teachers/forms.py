@@ -1,7 +1,26 @@
+import django_filters
+
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 
+from django.db import models
 from teachers.models import Teacher
+
+
+class TeacherFilter(django_filters.FilterSet):
+    class Meta:
+        model = Teacher
+        fields = ['first_name', 'last_name', 'profile_description',
+                  'email', 'phone_number', 'birth_date']
+
+        filter_overrides = {
+            models.CharField: {
+                'filter_class': django_filters.CharFilter,
+                'extra': lambda f: {
+                    'lookup_expr': 'icontains',
+                },
+            },
+        }
 
 
 class TeacherBaseForm(ModelForm):
@@ -21,7 +40,7 @@ class TeacherBaseForm(ModelForm):
             if self.instance in qs:
                 return email
             else:
-                raise ValidationError(f"Email is not unique.")
+                raise ValidationError("Email is not unique.")
 
         return email
 

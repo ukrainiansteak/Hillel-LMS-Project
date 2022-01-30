@@ -17,14 +17,14 @@ class Student(models.Model):
             MinValueValidator(20),
             MaxValueValidator(120),
             even_integer_validator
-    ])
+        ])
     email = models.EmailField(max_length=64)
     phone_number = models.CharField(
         max_length=24,
         validators=[
             RegexValidator(r'^(\+\d\d?)?\(\d{3}\)(\d-?){7}$',
                            message="Phone should be in format +1(111)222-33-44")
-                    ])
+        ])
     enroll_date = models.DateField(default=datetime.datetime.today())
     graduate_date = models.DateField(default=datetime.datetime.today)
 
