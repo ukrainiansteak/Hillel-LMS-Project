@@ -13,7 +13,7 @@ class TeacherBaseForm(ModelForm):
         email = self.cleaned_data['email']
         prohibited_domains = ['mail.ru', 'yandex.ru', 'rambler.ru']
         for domain in prohibited_domains:
-            if domain in email:
+            if domain in email.split('@')[1]:
                 raise ValidationError(f"You cannot register a {domain} email.")
 
         qs = Teacher.objects.all().filter(email=email)
