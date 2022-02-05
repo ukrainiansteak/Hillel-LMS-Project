@@ -9,6 +9,12 @@ class Teacher(models.Model):
     email = models.EmailField(null=True)
     birth_date = models.DateField(null=True)
     phone_number = models.CharField(max_length=20, null=True)
+    group = models.ForeignKey(
+        to='groups.Group',
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='teachers'
+    )
 
     @classmethod
     def generate_teachers(cls, count):

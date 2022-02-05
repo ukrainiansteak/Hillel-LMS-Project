@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+    {% block title %}
+        <title>Create teacher</title>
+    {% endblock %}
+
+{% block main %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <p><button style="margin-top: 7px"  type="submit" class="btn btn-primary btn-sm">Create Teacher</button></p>
+    </form>
+{% endblock %}

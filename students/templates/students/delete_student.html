@@ -1,13 +1,14 @@
 {% extends '_base.html' %}
     {% block title %}
-        <title>Delete teacher</title>
+        <title>Delete student</title>
     {% endblock %}
 {% block main %}
     <form method="post">
-        <p>Do you want to delete teacher {{ teacher.name }}?</p>
+        {% csrf_token %}
+        <p>Do you want to delete student {{ student.name }}?</p>
         <p>
             <button type="submit" class="btn btn-danger">Delete</button>
-            <a href="{% url 'teachers:list_teachers'%}" class="btn btn-secondary">Cancel</a>
+            <a href="{% url 'students:list_students'%}" class="btn btn-secondary">Cancel</a>
         </p>
     </form>
 {% endblock %}

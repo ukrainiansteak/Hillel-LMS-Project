@@ -1,8 +1,7 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404  # noqa
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
-from django.views.decorators.csrf import csrf_exempt
 
 from teachers.forms import TeacherCreateForm, TeacherUpdateForm, TeacherFilter
 from teachers.models import Teacher
@@ -13,13 +12,11 @@ def get_teachers(request):
 
     qs = qs.order_by('-id')
     teachers_filter = TeacherFilter(data=request.GET, queryset=qs)
-    return render(request, 'list_teachers.html', {
+    return render(request, 'teachers/list_teachers.html', {
         'filter': teachers_filter,
-        'args': request.GET,
     })
 
 
-@csrf_exempt
 def create_teacher(request):
     if request.method == 'POST':
         form = TeacherCreateForm(request.POST)
@@ -29,12 +26,11 @@ def create_teacher(request):
     else:
         form = TeacherCreateForm()
 
-    return render(request, 'create_teacher.html', {
+    return render(request, 'teachers/create_teacher.html', {
         'form': form
     })
 
 
-@csrf_exempt
 def update_teacher(request, id):
     teacher = get_object_or_404(Teacher, id=id)
 
@@ -46,18 +42,17 @@ def update_teacher(request, id):
     else:
         form = TeacherUpdateForm(instance=teacher)
 
-    return render(request, 'edit_teacher.html', {
+    return render(request, 'teachers/edit_teacher.html', {
         'form': form
     })
 
 
-@csrf_exempt
 def delete_teacher(request, id):
     teacher = get_object_or_404(Teacher, id=id)
     if request.method == 'POST':
         teacher.delete()
         return HttpResponseRedirect(reverse('teachers:list_teachers'))
 
-    return render(request, 'delete_teacher.html', {
+    return render(request, 'teachers/delete_teacher.html', {
         'teacher': teacher
     })
