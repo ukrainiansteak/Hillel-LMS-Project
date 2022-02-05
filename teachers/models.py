@@ -27,3 +27,6 @@ class Teacher(models.Model):
     def __str__(self):
         return f"Teacher({self.id}) {self.first_name} {self.last_name} " \
                f"{self.email} {self.birth_date}, {self.phone_number}"
+
+    def name(self):
+        return f'{self.first_name} {self.last_name}'

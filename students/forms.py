@@ -40,6 +40,22 @@ class StudentBaseForm(ModelForm):
             raise ValidationError("Phone number is not unique.")
         return phone_number
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        prohibited_domains = ['mail.ru', 'yandex.ru', 'rambler.ru']
+        for domain in prohibited_domains:
+            if domain in email.split('@')[1]:
+                raise ValidationError(f"You cannot register a {domain} email.")
+
+        qs = Student.objects.all().filter(email=email)
+        if qs.exists():
+            if self.instance in qs:
+                return email
+            else:
+                raise ValidationError("Email is not unique.")
+
+        return email
+
 
 class StudentCreateForm(StudentBaseForm):
     pass

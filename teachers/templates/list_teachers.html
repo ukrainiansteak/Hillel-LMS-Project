@@ -1,22 +1,22 @@
 {% extends '_base.html' %}
-
+{% load crispy_forms_tags %}
     {% block title %}
         <title>View teachers</title>
     {% endblock %}
-
 {% block main %}
     <form>
-        <p>Search teachers</p>
-        {{ filter.form.as_p }}
         <p>
-            <button type="submit">Search</button>
+            <strong>Search teachers</strong>
+            <a style="margin: 7px" type="submit" class="btn btn-light btn-sm" href="{% url 'teachers:create_teacher' %}">Add new teacher</a>
+        </p>
+        {{ filter.form|crispy }}
+        <p>
+            <button style="margin-top: 7px"  type="submit" class="btn btn-primary btn-sm">Search</button>
         </p>
     </form>
-    <a href="{% url 'create_teacher' %}">Add new teacher</a>
-    <br>
 
-    <table>
-        <tr>
+    <table class="table table-borderless table-hover">
+        <tr class="table-light">
             <th>First name</th>
             <th>Last name</th>
             <th>Email</th>
@@ -31,7 +31,9 @@
             <td>{{ teacher.email }}</td>
             <td>{{ teacher.phone_number }}</td>
             <td>{{ teacher.birth_date }}</td>
-            <td><a href="{% url 'update_teacher' id=teacher.id %}">Edit</a></td>
+            <td><a href="{% url 'teachers:update_teacher' id=teacher.id %}"><i style="color: #0a356b" class="fas fa-user-edit"></i></a>
+                <a href="{% url 'teachers:delete_teacher' id=teacher.id %}"><i style="color: #cf0011" class="fas fa-minus-circle"></i></a>
+            </td>
         </tr>
     {% endfor %}
     </table>

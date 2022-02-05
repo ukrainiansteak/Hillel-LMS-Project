@@ -27,6 +27,7 @@ class Student(models.Model):
         ])
     enroll_date = models.DateField(default=datetime.datetime.today())
     graduate_date = models.DateField(default=datetime.datetime.today)
+    inn = models.PositiveIntegerField(unique=True, null=True)
 
     @classmethod
     def generate_students(cls, count):
@@ -42,3 +43,7 @@ class Student(models.Model):
     def __str__(self):
         return f"Student({self.id}) {self.first_name} " \
                f"{self.last_name} {self.age} {self.phone_number} {self.email}"
+
+    @property
+    def name(self):
+        return f'{self.first_name} {self.last_name}'

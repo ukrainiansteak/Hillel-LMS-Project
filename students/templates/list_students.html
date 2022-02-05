@@ -1,23 +1,26 @@
 {% extends '_base.html' %}
-    {% block title %}
+{% load crispy_forms_tags %}
+{% block title %}
         <title>View student</title>
     {% endblock %}
 {% block main %}
     <form>
-        <p>Search students</p>
-        {{ filter.form.as_p }}
         <p>
-            <button type="submit">Search</button>
+            <strong>Search students</strong>
+            <a style="margin: 7px" type="submit" class="btn btn-light btn-sm" href="{% url 'students:create_student' %}">Add new student</a>
+        </p>
+        {{ filter.form|crispy }}
+        <p>
+            <button style="margin-top: 7px" type="submit" class="btn btn-primary btn-sm">Search</button>
         </p>
     </form>
-    <a href="{% url 'create_student' %}">Add new student</a>
-    <br>
 
-    <table>
-        <tr>
+    <table class="table table-borderless table-hover">
+        <tr class="table-light">
             <th>First Name</th>
             <th>Last Name</th>
             <th>Age</th>
+            <th></th>
             <th></th>
         </tr>
     {% for student in filter.qs|slice:":20" %}
@@ -25,7 +28,9 @@
             <td>{{ student.first_name }}</td>
             <td>{{ student.last_name }}</td>
             <td>{{ student.age }}</td>
-            <td><a href="{% url 'update_student' id=student.id %}">Edit</a></td>
+            <td><a href="{% url 'students:update_student' id=student.id %}"><i style="color: #0a356b" class="fas fa-user-edit"></i></a>
+                <a href="{% url 'students:delete_student' id=student.id %}"><i style="color: #cf0011" class="fas fa-minus-circle"></i></a>
+            </td>
         </tr>
     {% endfor %}
     </table>

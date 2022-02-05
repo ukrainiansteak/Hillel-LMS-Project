@@ -25,7 +25,7 @@ def create_teacher(request):
         form = TeacherCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('list_teachers'))
+            return HttpResponseRedirect(reverse('teachers:list_teachers'))
     else:
         form = TeacherCreateForm()
 
@@ -42,10 +42,22 @@ def update_teacher(request, id):
         form = TeacherUpdateForm(request.POST, instance=teacher)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('list_teachers'))
+            return HttpResponseRedirect(reverse('teachers:list_teachers'))
     else:
         form = TeacherUpdateForm(instance=teacher)
 
     return render(request, 'edit_teacher.html', {
         'form': form
+    })
+
+
+@csrf_exempt
+def delete_teacher(request, id):
+    teacher = get_object_or_404(Teacher, id=id)
+    if request.method == 'POST':
+        teacher.delete()
+        return HttpResponseRedirect(reverse('teachers:list_teachers'))
+
+    return render(request, 'delete_teacher.html', {
+        'teacher': teacher
     })
