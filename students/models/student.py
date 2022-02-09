@@ -1,26 +1,19 @@
 import datetime
 
-from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from faker import Faker
 import random
 
+from core_lms.models import Person
 
-class Student(models.Model):
-    first_name = models.CharField(max_length=64, null=False)
-    last_name = models.CharField(max_length=64, null=False)
+
+class Student(Person):
     age = models.IntegerField(
         default=20,
         validators=[
             MinValueValidator(20),
             MaxValueValidator(120),
-        ])
-    email = models.EmailField(max_length=64)
-    phone_number = models.CharField(
-        max_length=24,
-        validators=[
-            RegexValidator(r'^(\+\d\d?)?\(\d{3}\)(\d-?){7}$',
-                           message="Phone should be in format +1(111)222-33-44")
         ])
     enroll_date = models.DateField(default=datetime.datetime.today)
     graduate_date = models.DateField(default=datetime.datetime.today)

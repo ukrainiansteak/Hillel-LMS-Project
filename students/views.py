@@ -10,7 +10,7 @@ from students.models import Student
 def get_students(request):
     qs = Student.objects.all()
 
-    qs = qs.order_by('-id')
+    qs = qs.select_related('group__headman').order_by('-id')
     students_filter = StudentFilter(data=request.GET, queryset=qs)
     return render(request, 'students/list_students.html', {
         'filter': students_filter,

@@ -1,13 +1,12 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
 {% block title %}
-    <title>View student</title>
+    <title>View groups</title>
 {% endblock %}
 {% block main %}
     <form>
         <p>
-            <strong>Search students</strong>
-            <a style="margin: 7px" type="submit" class="btn btn-light btn-sm" href="{% url 'students:create_student' %}">Add new student</a>
+            <strong>Search groups</strong>
         </p>
         {{ filter.form|crispy }}
         <p>
@@ -15,6 +14,6 @@
         </p>
     </form>
 
-    {% include 'students/_students_list.html' with students=filter.qs|slice:":20"%}
+    {% include 'groups/_group_list.html' with groups=filter.qs %}
 
 {% endblock %}

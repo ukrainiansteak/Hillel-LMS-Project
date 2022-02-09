@@ -1,14 +1,12 @@
 from django.db import models
 from faker import Faker
 
+from core_lms.models import Person
 
-class Teacher(models.Model):
-    first_name = models.CharField(max_length=64, null=False)
-    last_name = models.CharField(max_length=64, null=False)
+
+class Teacher(Person):
     profile_description = models.TextField(null=True)
-    email = models.EmailField(null=True)
     birth_date = models.DateField(null=True)
-    phone_number = models.CharField(max_length=20, null=True)
     group = models.ForeignKey(
         to='groups.Group',
         null=True,

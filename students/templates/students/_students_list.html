@@ -1,0 +1,35 @@
+<table class="table table-borderless table-hover">
+        <tr class="table-light">
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Group</th>
+            <th>Group Headman</th>
+            <th></th>
+        </tr>
+    {% for student in students %}
+        <tr>
+            <td>{{ student.first_name }}</td>
+            <td>{{ student.last_name }}</td>
+            <td>{{ student.age }}</td>
+            <td>
+                {% if student.group %}
+                    <a href="{% url 'groups:group' id=student.group.id %}">
+                        {{ student.group.specialty }}
+                    </a>
+                {% else %}
+                    <i>Empty</i>
+                {% endif %}
+            </td>
+            <td>
+                {% if student.group_id and student.group.headman.id %}
+                    {{ student.group.headman.name }}
+                {% endif %} 
+            </td>
+            <td>
+                <a href="{% url 'students:update_student' id=student.id %}"><i style="color: #0a356b" class="fas fa-user-edit"></i></a>
+                <a href="{% url 'students:delete_student' id=student.id %}"><i style="color: #cf0011" class="fas fa-minus-circle"></i></a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>

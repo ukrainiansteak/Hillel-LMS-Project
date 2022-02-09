@@ -1,0 +1,22 @@
+<table class="table table-borderless table-hover">
+        <tr class="table-light">
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Email</th>
+            <th>Phone number</th>
+            <th>Birth date</th>
+            <th></th>
+        </tr>
+    {% for teacher in teachers %}
+        <tr>
+            <td>{{ teacher.first_name }}</td>
+            <td>{{ teacher.last_name }}</td>
+            <td>{{ teacher.email }}</td>
+            <td>{{ teacher.phone_number }}</td>
+            <td>{{ teacher.birth_date }}</td>
+            <td><a href="{% url 'teachers:update_teacher' id=teacher.id %}"><i style="color: #0a356b" class="fas fa-user-edit"></i></a>
+                <a href="{% url 'teachers:delete_teacher' id=teacher.id %}"><i style="color: #cf0011" class="fas fa-minus-circle"></i></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>

@@ -1,0 +1,17 @@
+<table class="table table-borderless table-hover">
+
+        <tr class="table-light">
+            <th>Course</th>
+            <th>Location</th>
+            <th>Start Date</th>
+
+        </tr>
+
+    {% for group in groups %}
+        <tr>
+            <td><a href="{% url 'groups:group' id=group.id %}"> {{ group.specialty }} </a></td>
+            <td>{{ group.get_location_display }}</td>
+            <td>{{ group.date_start }}</td>
+        </tr>
+    {% endfor %}
+</table>

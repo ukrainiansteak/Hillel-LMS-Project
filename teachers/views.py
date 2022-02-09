@@ -10,7 +10,7 @@ from teachers.models import Teacher
 def get_teachers(request):
     qs = Teacher.objects.all()
 
-    qs = qs.order_by('-id')
+    qs = qs.select_related('group').order_by('-id')
     teachers_filter = TeacherFilter(data=request.GET, queryset=qs)
     return render(request, 'teachers/list_teachers.html', {
         'filter': teachers_filter,
