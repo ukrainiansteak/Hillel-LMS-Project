@@ -1,2 +1,2 @@
-from .student import Student
-from .lecture import Lecture
+from .student import Student  # noqa
+from .lecture import Lecture  # noqa

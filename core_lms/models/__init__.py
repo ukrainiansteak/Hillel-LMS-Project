@@ -1,3 +1,3 @@
-from .person import Person
-from .tagged_item import TaggedItem
-from .tag import Tag
+from .person import Person  # noqa
+from .tagged_item import TaggedItem  # noqa
+from .tag import Tag  # noqa

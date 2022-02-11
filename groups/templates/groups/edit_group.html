@@ -1,0 +1,22 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+    {% block title %}
+        <title>Edit group</title>
+    {% endblock %}
+{% block main %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <p><button style="margin-top: 7px"  type="submit" class="btn btn-primary btn-sm">Update Group</button></p>
+    </form>
+
+    <h3>Students</h3>
+    {% with students=object.students.all %}
+        {% include 'students/_students_list.html' %}
+    {% endwith %}
+
+    <h3>Teachers</h3>
+    {% with teachers=object.teachers.all %}
+        {% include 'teachers/_teachers_list.html' %}
+    {% endwith %}
+{% endblock %}

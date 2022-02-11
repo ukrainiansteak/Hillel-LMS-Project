@@ -8,4 +8,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         Student.update_students()
-        self.stdout.write(self.style.SUCCESS(f"Successfully updated students."))
+        self.stdout.write(self.style.SUCCESS("Successfully updated students."))

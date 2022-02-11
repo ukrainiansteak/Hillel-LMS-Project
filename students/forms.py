@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 
 from students.models import Student
+from django.db import models
 
 import django_filters
 
@@ -10,6 +11,15 @@ class StudentFilter(django_filters.FilterSet):
     class Meta:
         model = Student
         fields = ['first_name', 'last_name', 'age']
+
+        filter_overrides = {
+            models.CharField: {
+                'filter_class': django_filters.CharFilter,
+                'extra': lambda f: {
+                    'lookup_expr': 'icontains',
+                },
+            },
+        }
 
 
 class StudentBaseForm(ModelForm):

@@ -3,31 +3,34 @@
     <title>View group</title>
 {% endblock %}
 {% block main %}
-    <h2>Group {{ group.specialty }}</h2>
+    <h2>
+        Group {{ object.specialty }}
+        <a href="{% url 'groups:edit_group' id=object.id %}">Edit</a>
+    </h2>
     <table class="table">
         <tr>
             <th>Course</th>
-            <td>{{ group.specialty }}</td>
+            <td>{{ object.specialty }}</td>
         </tr>
         <tr>
             <th>Location</th>
-            <td>{{ group.get_location_display }}</td>
+            <td>{{ object.get_location_display }}</td>
         </tr>
         <tr>
             <th>Start Date</th>
-            <td>{{ group.date_start }}</td>
+            <td>{{ object.date_start }}</td>
         </tr>
         <tr>
             <th>Headman</th>
-            <td>{{ group.headman.name }}</td>
+            <td>{{ object.headman.name }}</td>
         </tr>
     </table>
     <h3>Students</h3>
-    {% with students=group.students.all  %}
+    {% with students=object.students.all  %}
         {% include 'students/_students_list.html' %}
     {% endwith %}
     <h3>Teachers</h3>
-    {% with teachers=group.teachers.all  %}
+    {% with teachers=object.teachers.all  %}
         {% include 'teachers/_teachers_list.html' %}
     {% endwith %}
 {% endblock %}

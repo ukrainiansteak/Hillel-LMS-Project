@@ -2,6 +2,7 @@ import datetime
 import random
 
 from django.db import models
+from django.urls import reverse
 from faker import Faker
 
 
@@ -39,3 +40,6 @@ class Group(models.Model):
                     datetime.timedelta(days=random.randint(1, 1000))
             )
             group.save()
+
+    def get_absolute_url(self):
+        return reverse('groups:group', kwargs={'id': self.id})

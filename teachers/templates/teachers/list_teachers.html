@@ -1,4 +1,5 @@
 {% extends '_base.html' %}
+{% load bootstrap_pagination %}
 {% load crispy_forms_tags %}
     {% block title %}
         <title>View teachers</title>
@@ -15,6 +16,6 @@
         </p>
     </form>
 
-    {% include 'teachers/_teachers_list.html' with teachers=filter.qs|slice:":20"%}
-
+    {% include 'teachers/_teachers_list.html' with teachers=object_list%}
+    {% bootstrap_paginate page_obj show_prev_next="false" show_first_last="true" %}
 {% endblock %}

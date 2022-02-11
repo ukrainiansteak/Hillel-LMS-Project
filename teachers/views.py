@@ -1,58 +1,46 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
-
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from teachers.forms import TeacherCreateForm, TeacherUpdateForm, TeacherFilter
 from teachers.models import Teacher
 
 
-def get_teachers(request):
-    qs = Teacher.objects.all()
+class TeachersListView(ListView):
+    model = Teacher
+    queryset = Teacher.objects.all().select_related('group')
+    template_name = 'teachers/list_teachers.html'
+    paginate_by = 10
+    ordering = ['-id']
 
-    qs = qs.select_related('group').order_by('-id')
-    teachers_filter = TeacherFilter(data=request.GET, queryset=qs)
-    return render(request, 'teachers/list_teachers.html', {
-        'filter': teachers_filter,
-    })
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        filter = TeacherFilter(self.request.GET, queryset)
+        return filter.qs
 
-
-def create_teacher(request):
-    if request.method == 'POST':
-        form = TeacherCreateForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('teachers:list_teachers'))
-    else:
-        form = TeacherCreateForm()
-
-    return render(request, 'teachers/create_teacher.html', {
-        'form': form
-    })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        teacher_filter = TeacherFilter(queryset=self.queryset)
+        context['filter'] = teacher_filter
+        return context
 
 
-def update_teacher(request, id):
-    teacher = get_object_or_404(Teacher, id=id)
-
-    if request.method == 'POST':
-        form = TeacherUpdateForm(request.POST, instance=teacher)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('teachers:list_teachers'))
-    else:
-        form = TeacherUpdateForm(instance=teacher)
-
-    return render(request, 'teachers/edit_teacher.html', {
-        'form': form
-    })
+class TeacherCreateView(CreateView):
+    model = Teacher
+    success_url = reverse_lazy('teachers:list_teachers')
+    template_name = 'teachers/create_teacher.html'
+    form_class = TeacherCreateForm
 
 
-def delete_teacher(request, id):
-    teacher = get_object_or_404(Teacher, id=id)
-    if request.method == 'POST':
-        teacher.delete()
-        return HttpResponseRedirect(reverse('teachers:list_teachers'))
+class TeacherUpdateView(UpdateView):
+    model = Teacher
+    success_url = reverse_lazy('teachers:list_teachers')
+    template_name = 'teachers/edit_teacher.html'
+    form_class = TeacherUpdateForm
+    pk_url_kwarg = 'id'
 
-    return render(request, 'teachers/delete_teacher.html', {
-        'teacher': teacher
-    })
+
+class TeacherDeleteView(DeleteView):
+    model = Teacher
+    success_url = reverse_lazy('teachers:list_teachers')
+    template_name = 'teachers/delete_teacher.html'
+    pk_url_kwarg = 'id'

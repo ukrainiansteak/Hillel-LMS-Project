@@ -5,7 +5,7 @@
 {% block main %}
     <form method="post">
         {% csrf_token %}
-        <p>Do you want to delete student {{ student.name }}?</p>
+        <p>Do you want to delete student {{ object.name }}?</p>
         <p>
             <button type="submit" class="btn btn-danger">Delete</button>
             <a href="{% url 'students:list_students'%}" class="btn btn-secondary">Cancel</a>
