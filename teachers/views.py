@@ -19,7 +19,7 @@ class TeachersListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        teacher_filter = TeacherFilter(queryset=self.queryset)
+        teacher_filter = TeacherFilter(self.request.GET, queryset=self.queryset)
         context['filter'] = teacher_filter
         return context
 
