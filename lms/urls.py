@@ -19,8 +19,9 @@ from django.urls import path, include
 from core_lms.views import index
 
 urlpatterns = [
-    path('', index),
+    path('', index, name='index'),
     path('admin/', admin.site.urls),
+    path('account/', include('accounts.urls')),
     path('students/', include('students.urls')),
     path('teachers/', include('teachers.urls')),
     path('groups/', include('groups.urls')),

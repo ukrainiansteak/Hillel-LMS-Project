@@ -17,6 +17,24 @@
               <a class="nav-link active" aria-current="page" href="{% url 'groups:list_groups' %}">Groups</a>
             </li>
           </ul>
+            <ul class="navbar-nav me-2 mb-2 mb-lg-0">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href={% url 'accounts:profile' %}>{{ user.username }}'s Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href={% url 'accounts:logout' %}>Sign Out</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href={% url 'accounts:register' %}>Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href={% url 'accounts:login' %}>Sign In</a>
+                    </li>
+                {% endif %}
+
+            </ul>
         </div>
       </div>
     </nav>

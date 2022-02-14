@@ -1,0 +1,29 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+    {% block title %}
+        <title>{{ user.username}}'s Profile</title>
+    {% endblock %}
+
+{% block main %}
+    <form method="post">
+        <div id="div_id_login" class="form-group">
+            <label for="id_login">
+                User Name
+            </label>
+            <div>
+                <input type="text" name="login"
+                       value="{{ user.username }}"
+                       maxlength="150"
+                       class="textinput textInput form-control"
+                       id="id_login"
+                       disabled="disabled">
+            </div>
+        </div>
+
+        {% csrf_token %}
+        {{ form|crispy }}
+        <p><button style="margin-top: 7px"  type="submit" class="btn btn-primary btn-sm">
+            Update Account</button></p>
+    </form>
+{% endblock %}
