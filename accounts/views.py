@@ -16,6 +16,14 @@ class AccountRegister(CreateView):
     success_url = reverse_lazy('index')
     form_class = AccountRegisterForm
 
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        messages.success(
+            self.request,
+            'Profile created successfully. You can now sign in.'
+        )
+        return result
+
 
 class AccountLogin(LoginView):
     template_name = 'accounts/login.html'

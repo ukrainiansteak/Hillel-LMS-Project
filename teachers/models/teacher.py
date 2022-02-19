@@ -14,6 +14,14 @@ class Teacher(Person):
         related_name='teachers'
     )
 
+    class Role(models.TextChoices):
+        MENTOR = 'M', 'Mentor'
+        TEACHER = 'T', 'Teacher'
+
+    role = models.CharField(default=Role.TEACHER,
+                            choices=Role.choices,
+                            max_length=1)
+
     @classmethod
     def generate_teachers(cls, count):
         faker = Faker()
