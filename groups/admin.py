@@ -25,7 +25,7 @@ class GroupAdmin(admin.ModelAdmin):
     list_display = ['id', 'specialty']
     inlines = [StudentTable, TeacherTable]
     list_editable = ['specialty']
-    autocomplete_fields = ['headman',]
+    autocomplete_fields = ['headman', ]
 
 
 admin.site.register(Group, GroupAdmin)

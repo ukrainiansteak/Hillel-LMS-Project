@@ -5,3 +5,4 @@ __pycache__
 *.sqlite3
 .flake8
 static-root
+media

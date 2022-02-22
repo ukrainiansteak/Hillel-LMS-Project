@@ -20,6 +20,11 @@
             <ul class="navbar-nav me-2 mb-2 mb-lg-0">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
+                        {% if user.profile.image %}
+                                <img src="{{ user.profile.image.url }}" id="small-profile-image" class="rounded-circle">
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" aria-current="page" href={% url 'accounts:profile' %}>{{ user.username }}'s Profile</a>
                     </li>
                     <li class="nav-item">

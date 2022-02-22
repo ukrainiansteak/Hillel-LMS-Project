@@ -1,12 +1,22 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
     {% block title %}
         <title>{{ user.username}}'s Profile</title>
     {% endblock %}
 
 {% block main %}
-    <form method="post">
+    <div class="profile-image">
+        {% if user.profile.image %}
+            <img src="{{ user.profile.image.url }}" class="rounded-circle">
+        {% else %}
+            <img src="{% static 'images/default.png' %}" class="rounded-circle">
+        {% endif %}
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ profile_form|crispy }}
         <div id="div_id_login" class="form-group">
             <label for="id_login">
                 User Name
@@ -20,9 +30,8 @@
                        disabled="disabled">
             </div>
         </div>
+        {{ user_form|crispy }}
 
-        {% csrf_token %}
-        {{ form|crispy }}
         <p><button style="margin-top: 7px"  type="submit" class="btn btn-primary btn-sm">
             Update Account</button></p>
     </form>
