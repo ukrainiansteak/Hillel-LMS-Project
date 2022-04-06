@@ -36,6 +36,13 @@ class TeacherCreateView(LoginRequiredMixin, CreateView):
     template_name = 'teachers/create_teacher.html'
     form_class = TeacherCreateForm
 
+    # success_message = "Teacher %(teacher)s was created successfully"
+    #
+    # def get_success_message(self, cleaned_data):
+    #     return self.success_message % dict(
+    #         cleaned_data,
+    #         teacher=self.object,
+    #     )
 
 class TeacherUpdateView(LoginRequiredMixin, UpdateView):
     model = Teacher

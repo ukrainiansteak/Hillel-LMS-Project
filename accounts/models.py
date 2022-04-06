@@ -42,5 +42,5 @@ class Profile(models.Model):
                     width = 300
                     height = 300
                 path = self.image.path
-                self.image = im.resize((width, height))
+                self.image = im.resize((width, height), Image.ANTIALIAS)
                 self.image.save(path)

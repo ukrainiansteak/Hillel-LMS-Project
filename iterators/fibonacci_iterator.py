@@ -16,4 +16,3 @@ for index, item in enumerate(FibonacciIterator(), start=1):
     if index > 10:
         break
     print(index, item)
-    
