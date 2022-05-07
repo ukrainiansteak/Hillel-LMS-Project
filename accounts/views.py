@@ -7,7 +7,7 @@ from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordCha
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView
 
 from accounts.forms import AccountRegisterForm, UserEditForm, ProfileEditForm
 
