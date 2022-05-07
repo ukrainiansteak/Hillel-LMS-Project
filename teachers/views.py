@@ -44,6 +44,7 @@ class TeacherCreateView(LoginRequiredMixin, CreateView):
     #         teacher=self.object,
     #     )
 
+
 class TeacherUpdateView(LoginRequiredMixin, UpdateView):
     model = Teacher
     success_url = reverse_lazy('teachers:list_teachers')
