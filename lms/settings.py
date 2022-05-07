@@ -191,3 +191,9 @@ INTERNAL_IPS = [
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'index'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST_USER = 'testtestapp@gmail.com'
+
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672'
