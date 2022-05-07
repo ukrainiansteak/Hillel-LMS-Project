@@ -3,6 +3,5 @@ __pycache__
 *.pyc
 .idea
 *.sqlite3
-.flake8
 static-root
 media
