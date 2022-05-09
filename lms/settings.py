@@ -72,6 +72,8 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'crispy_forms',
     'bootstrap_pagination',
+    'rest_framework',
+    'drf_yasg',
 
     'core_lms',
     'students',
