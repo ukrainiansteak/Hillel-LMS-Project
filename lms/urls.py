@@ -28,8 +28,7 @@ urlpatterns = [
     path('teachers/', include('teachers.urls')),
     path('groups/', include('groups.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
-    path('api/', include('api.urls')),
-
+    path('api/v1/', include('api.v1.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

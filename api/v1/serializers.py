@@ -8,7 +8,7 @@ from teachers.models import Teacher
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ('id', 'first_name', 'last_name')
+        fields = ('id', 'first_name', 'last_name', 'age')
 
 
 class TeacherSerializer(serializers.ModelSerializer):
