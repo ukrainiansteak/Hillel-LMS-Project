@@ -10,6 +10,7 @@ class AllGroupsListView(LoginRequiredMixin, ListView):
     queryset = Group.objects.all()
     template_name = 'groups/list_groups.html'
     paginate_by = 10
+    ordering = ['id']
 
     def get_filter(self, queryset=None):
         if not queryset:

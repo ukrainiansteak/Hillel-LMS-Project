@@ -15,18 +15,19 @@ class Group(models.Model):
         ("DN", "Dnipro"),
     ]
 
-    date_start = models.DateField()
+    date_start = models.DateField(default=datetime.datetime.today)
     location = models.CharField(max_length=20, choices=LOCATION_CHOICES, null=True)
     specialty = models.CharField(max_length=60, null=False)
     headman = models.OneToOneField(
         to='students.Student',
         null=True,
+        blank=True,
         related_name='headed_group',
         on_delete=models.SET_NULL
     )
 
     def __str__(self):
-        return f"Group {self.specialty} {self.get_location_display()} {self.date_start}"
+        return f"Group {self.pk} {self.specialty} {self.get_location_display()} {self.date_start}"
 
     @classmethod
     def generate(cls, count):

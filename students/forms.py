@@ -29,12 +29,13 @@ class StudentBaseForm(ModelForm):
 
     def clean(self):
         result = super().clean()
-        enroll_date = self.cleaned_data['enroll_date']
-        graduate_date = self.cleaned_data['graduate_date']
+        if self.cleaned_data:
+            enroll_date = self.cleaned_data['enroll_date']
+            graduate_date = self.cleaned_data['graduate_date']
 
-        if enroll_date > graduate_date:
-            raise ValidationError("Enroll date cannot be later"
-                                  " than graduate date.")
+            if enroll_date > graduate_date:
+                raise ValidationError("Enroll date cannot be later"
+                                      " than graduate date.")
 
         return result
 
